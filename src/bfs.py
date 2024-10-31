@@ -1,5 +1,4 @@
 from queue import Queue
-from collections import deque
 import copy
 
 """
@@ -39,15 +38,13 @@ class Node():
         self.empty_cell_position = empty_cell_position
 
 
-def printMatrix(mat):
-     print(mat)
 
 def print_path(root):
     if root == None:
         return
      
     print_path(root.parent)
-    printMatrix(root.state)
+    print(root.state)
     print()
 
 
@@ -58,7 +55,7 @@ def Breadth_First_Search(initial_state, empty_cell_position, goal_state):
         if node.state == goal_state:
              return node.state
         
-        frontier =  Queue()
+        frontier = Queue()
         frontier.put(node)
         explored = set()
 
@@ -98,27 +95,9 @@ def Breadth_First_Search(initial_state, empty_cell_position, goal_state):
                                         empty_cell_position= node.empty_cell_position, new_empty_cell_position=new_empty_cell_position)
                        
                        frontier.put(child)
-                       
-                  
-
-
-             
-          
-
 
 def new_node(state,parent,empty_cell_position,new_empty_cell_position):
-     """
-     Generate the possible children 
-     we move left right down up 
-     left right => change in column only
-     ==>> when it moves left the column - 1
-     ==>> when it moves right the column + 1 
-     down up => change in row only 
-     ==>> when it moves up the row - 1 
-     ==>> when it moves down the row + 1  
 
-     so we can generate like this row [-1,1,0,0] ----- col [0,0,-1,1] 
-     """
      new_state = copy.deepcopy(state)
      x1 = empty_cell_position[0]
      y1 = empty_cell_position[1]
@@ -127,19 +106,9 @@ def new_node(state,parent,empty_cell_position,new_empty_cell_position):
 
      new_state[x1][y1], new_state[x2][y2] = new_state[x2][y2], new_state[x1][y1]
 
-     newNode = Node(state = new_state, parent = parent,empty_cell_position = new_empty_cell_position)
+     newNode = Node(state = new_state, parent = parent, empty_cell_position = new_empty_cell_position)
 
      return newNode
-
-
-
-
-
-
-                    
-                    
-             
-
 
 def find_zeros(state):
      for i in range(0,3):
@@ -147,7 +116,6 @@ def find_zeros(state):
                if state[i][j] == 0:
                     empty_cell_position = [i,j]
                     return empty_cell_position
-
 
 if __name__ == "__main__":
 
